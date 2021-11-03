@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Algo-03/Algo-03.iml" filepath="$PROJECT_DIR$/Algo-03/Algo-03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Algo-06/Algo-06.iml" filepath="$PROJECT_DIR$/Algo-06/Algo-06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Algo-08/Algo-08.iml" filepath="$PROJECT_DIR$/Algo-08/Algo-08.iml" />
       <module fileurl="file://$PROJECT_DIR$/Datastructures&amp;Algoritms01/Datastructures&amp;Algoritms01.iml" filepath="$PROJECT_DIR$/Datastructures&amp;Algoritms01/Datastructures&amp;Algoritms01.iml" />
       <module fileurl="file://$PROJECT_DIR$/datastructuresandalgoritms.iml" filepath="$PROJECT_DIR$/datastructuresandalgoritms.iml" />
     </modules>

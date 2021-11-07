@@ -16,7 +16,7 @@ public class Algo9 {
         Arrays.sort(numbers);
         System.out.println(Arrays.toString(numbers));
 
-
+        // O(n)
         for (int i = 0; i < numbers.length - 2; i++) {
 
             if (isAdjacent(numbers[i], numbers[i + 1]) ) {
@@ -24,10 +24,8 @@ public class Algo9 {
                 LinkedList<Integer> linkedList = new LinkedList<>();
 
                 while (isAdjacent(numbers[i], numbers[i + 1])){
+
                        linkedList.add(numbers[i++]);
-                       if (i == numbers.length - 1){
-                            break;
-                       }
                 }
                 linkedList.add(numbers[i]);
                 map.put(linkedList.size(), linkedList);

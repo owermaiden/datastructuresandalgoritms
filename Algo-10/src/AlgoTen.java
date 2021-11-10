@@ -3,8 +3,10 @@ import java.util.*;
 public class AlgoTen {
 
     public static void main(String[] args) {
-        String word = "*    vava";
+        String word = "Cydeo is the best!";
+        String edgeCase = "    - hello%&/>   world...   Ower   ";
         System.out.println(reverseWords(word));
+        System.out.println(reverseWords(edgeCase));
     }
 
     public static String reverseWords(String sentence){

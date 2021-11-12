@@ -4,34 +4,69 @@ import java.util.regex.Pattern;
 public class Algo11 {
     public static void main(String[] args) {
 
-        Triea pattern = new Triea();
+        String pattern = "xyyxyy";
+        String str = "helloworldworldhelloworldworld";
 
-        String str1 = "yxx";
-        String str2 = "merhabamerhabayalan";
-        pattern.insert(str1);
+        pattern = findPattern(pattern);  //--------------------------O(n)
+        System.out.println(pattern);
 
-        System.out.println(findPattern(str1, str2));
+        str = findPattern(str);
+        System.out.println(str);
+
+        System.out.println(findXY(pattern, str));    //--------------O(n)
 
     }
 
-    public static List<String> findPattern(String pattern, String word) {
-
-        List<String> result = new ArrayList<>();
-        Map<Character, String> map = new LinkedHashMap<>();
+    public static String findPattern(String str) {      // find the pattern.......................
+        Map<String, String> map = new LinkedHashMap<>();
 
         int i = 1;
-        while (word.substring(i).contains(word.substring(0, i))){
+        while (str.substring(i).contains(str.substring(0, i))) {
 
-            map.put(pattern.charAt(0), word.substring(0,i++));
+            map.put("pattern", str.substring(0,i++));
 
         }
-        String x = map.get(pattern.charAt(0));
-        String y = word.replace(x, "");
 
-        result.add(x);
-        result.add(y);
-        return result;
-
-
+        return map.get("pattern");
     }
+
+    public static ArrayList<String> findXY(String pattern, String str){  //...........extract x and y from String
+
+        ArrayList<String> exAndVay = new ArrayList<>();
+
+        //
+        String newStr = "";
+        int i = 1;
+        while (str.substring(i).contains(str.substring(0, i))){
+
+            newStr = pattern.replace("x", str.substring(0,i++));
+            if (newStr.length() == str.length()){
+                break;
+            }
+        }
+
+        newStr = newStr.replace("y", "");
+
+        Set<Character> set = new LinkedHashSet<>();
+        for (char ch : newStr.toCharArray()){
+            set.add(ch);
+        }
+
+        StringBuilder ex = new StringBuilder();
+        for (Character ch : set) {
+            ex.append(ch);
+        }
+
+        String vay = str.replace(ex,"");
+
+        exAndVay.add(ex.toString());
+        exAndVay.add(vay);
+
+        return exAndVay;
+    }
+
+
+
+
+
 }

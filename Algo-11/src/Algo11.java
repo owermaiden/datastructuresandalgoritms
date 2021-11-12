@@ -4,8 +4,8 @@ import java.util.regex.Pattern;
 public class Algo11 {
     public static void main(String[] args) {
 
-        String pattern = "xyyxyy";
-        String str = "helloworldworldhelloworldworld";
+        String pattern = "xxyxxy";
+        String str = "gogopowerrangergogopowerranger";
 
         pattern = findPattern(pattern);  //--------------------------O(n)
         System.out.println(pattern);
@@ -40,9 +40,7 @@ public class Algo11 {
         while (str.substring(i).contains(str.substring(0, i))){
 
             newStr = pattern.replace("x", str.substring(0,i++));
-            if (newStr.length() == str.length()){
-                break;
-            }
+
         }
 
         newStr = newStr.replace("y", "");

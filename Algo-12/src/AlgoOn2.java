@@ -4,43 +4,45 @@ public class AlgoOn2 {
 
     public static void main(String[] args) {
 
-        int[] arr1 = {-1, 2, -5, 6, 10, 25};
-        int[] arr2 = {42, 65, 7,66, 34, 55};
+        int[] arr1 = {-1,5,10,20,28,3};
+        int[] arr2 = {26, 65, 76};
 
         System.out.println(findClosest(arr1, arr2));
     }
 
     public static ArrayList<Integer> findClosest(int[] arr1, int[] arr2){
-        Queue<Integer> queue = new PriorityQueue<>();
+        // Queue<Integer> queue = new PriorityQueue<>();
+        ArrayList<Integer> result = new ArrayList<>();
         Map<Integer, ArrayList<Integer>> map = new HashMap<>();
-        ArrayList<Integer> result;
 
-        Arrays.sort(arr2);
+        if (arr1.length == 0 || arr2.length == 0) return result;
+
+        Arrays.sort(arr2);  //------------------------------------------ O(n)-------------------------------------------
         Arrays.sort(arr1);
 
         for ( int one : arr1 ){
 
-                int prev = Math.abs(one - arr2[0]);
-                for (int i = 0; i < arr2.length - 1; i++) {
+                int prevDistance = Math.abs(one - arr2[0]);
+                for (int i = 1; i < arr2.length - 1; i++) {
 
-                    int distance = Math.abs(one - arr2[i]);
+                    int currDistance = Math.abs(one - arr2[i]);
 
-                    if (distance > prev){
+                    if (currDistance > prevDistance){
 
                         ArrayList<Integer> temp = new ArrayList<>();
-                        queue.add(prev);
+                        //queue.add(prevDistance);
                         temp.add(one);
                         temp.add(arr2[i - 1]);
-                        map.put(prev, temp);
+                        map.put(prevDistance, temp);
                         break;
                     }
-                        prev = distance;
+                        prevDistance = currDistance;
                 }
         }
 
-        System.out.println(queue.poll());
+        var smallestKey = Optional.of(map.keySet().stream().mapToInt(v -> v).min().orElseThrow(NoSuchElementException::new)).get();
+        result = map.get(smallestKey);
         System.out.println(map);
-        result = map.get(queue.poll());
         return result;
     }
 

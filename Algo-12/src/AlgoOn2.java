@@ -5,7 +5,7 @@ public class AlgoOn2 {
     public static void main(String[] args) {
 
         int[] arr1 = {-1,5,10,20,28,3};
-        int[] arr2 = {26, 65, 76};
+        int[] arr2 = {29,26, 65, 76};
 
         System.out.println(findClosest(arr1, arr2));
     }
@@ -13,12 +13,12 @@ public class AlgoOn2 {
     public static ArrayList<Integer> findClosest(int[] arr1, int[] arr2){
         // Queue<Integer> queue = new PriorityQueue<>();
         ArrayList<Integer> result = new ArrayList<>();
-        Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+        Map<Integer, ArrayList<Integer>> map = new LinkedHashMap<>();
 
         if (arr1.length == 0 || arr2.length == 0) return result;
 
         Arrays.sort(arr2);  //------------------------------------------ O(n)-------------------------------------------
-        Arrays.sort(arr1);
+        //Arrays.sort(arr1);
 
         for ( int one : arr1 ){
 
@@ -26,6 +26,12 @@ public class AlgoOn2 {
                 for (int i = 1; i < arr2.length - 1; i++) {
 
                     int currDistance = Math.abs(one - arr2[i]);
+
+                    if (currDistance == 0) {
+                        result.add(one);
+                        result.add(arr2[i]);
+                        return result;
+                    }
 
                     if (currDistance > prevDistance){
 

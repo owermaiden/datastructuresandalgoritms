@@ -34,7 +34,7 @@ public class Algo11 {
 
         ArrayList<String> exAndVay = new ArrayList<>();
 
-        //
+        // ----------------------------------------------------------- Replace the repeating Character with original string's substring
         String newStr = "";
         int i = 1;
         while (str.substring(i).contains(str.substring(0, i))){
@@ -43,8 +43,10 @@ public class Algo11 {
 
         }
 
+        // ----------------------------------------------------------- Replace "y" with empty space.................
         newStr = newStr.replace("y", "");
 
+        // ----------------------------------------------------------- Put them in a Set to get X  .................
         Set<Character> set = new LinkedHashSet<>();
         for (char ch : newStr.toCharArray()){
             set.add(ch);
@@ -55,6 +57,7 @@ public class Algo11 {
             ex.append(ch);
         }
 
+        // ----------------------------------------------------------- Remove X from original string and get Y .....
         String vay = str.replace(ex,"");
 
         exAndVay.add(ex.toString());

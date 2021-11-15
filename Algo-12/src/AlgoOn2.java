@@ -5,44 +5,45 @@ public class AlgoOn2 {
     public static void main(String[] args) {
 
         int[] arr1 = {-1,5,10,20,28,3};
-        int[] arr2 = {29,26, 65, 76};
+        int[] arr2 = {29, 15, 65, 76};
 
         System.out.println(findClosest(arr1, arr2));
     }
 
-    public static ArrayList<Integer> findClosest(int[] arr1, int[] arr2){
+    public static ArrayList<Integer> findClosest(int[] firstArray, int[] seconArray){
         // Queue<Integer> queue = new PriorityQueue<>();
         ArrayList<Integer> result = new ArrayList<>();
         Map<Integer, ArrayList<Integer>> map = new LinkedHashMap<>();
 
-        if (arr1.length == 0 || arr2.length == 0) return result;
+        if (firstArray.length == 0 || seconArray.length == 0) return result;
 
-        Arrays.sort(arr2);  //------------------------------------------ O(n)-------------------------------------------
-        //Arrays.sort(arr1);
+        Arrays.sort(seconArray);  //------------------------------------------ O(n)-------------------------------------------
+        //Arrays.sort(firstArray);
 
-        for ( int one : arr1 ){
+        for ( int firstArrayEl : firstArray ){
 
-                int prevDistance = Math.abs(one - arr2[0]);
-                for (int i = 1; i < arr2.length - 1; i++) {
+                int prevDistance = Math.abs(firstArrayEl - seconArray[0]);  // First element distance......
+                for (int i = 1; i < seconArray.length - 1; i++) {
 
-                    int currDistance = Math.abs(one - arr2[i]);
+                    int currDistance = Math.abs(firstArrayEl - seconArray[i]);
 
-                    if (currDistance == 0) {
-                        result.add(one);
-                        result.add(arr2[i]);
+                    if (currDistance == 0) {    // No need to look further.................................
+
+                        result.add(firstArrayEl);
+                        result.add(seconArray[i]);
                         return result;
                     }
 
-                    if (currDistance > prevDistance){
+                    if (currDistance > prevDistance){   //  No need to look further.......................
 
                         ArrayList<Integer> temp = new ArrayList<>();
                         //queue.add(prevDistance);
-                        temp.add(one);
-                        temp.add(arr2[i - 1]);
+                        temp.add(firstArrayEl);
+                        temp.add(seconArray[i - 1]);
                         map.put(prevDistance, temp);
                         break;
                     }
-                        prevDistance = currDistance;
+                        prevDistance = currDistance;   //   Transfer distance to next iterate.............
                 }
         }
 

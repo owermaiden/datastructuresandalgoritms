@@ -2,21 +2,18 @@ import java.util.*;
 
 public class AlgoOn3 {
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 5, 2, 0, 10, 15, 5, 10, 15, 20, 14, 4};
+        int[] nums = {  0, 10, 15, 5, 4, 2, 12, 10, 15, 20, 19 };
                    // p  c  n
                    //    p  c  n
         System.out.println(findMaxPeek(nums));
 
     }
 
-    public static LinkedList<Integer> findMaxPeek(int[] nums){
+    public static String findMaxPeek(int[] nums){
         ArrayList<Integer> list = new ArrayList<>();
         HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
-        Queue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
-
         int i = 0;
         int peek = Integer.MAX_VALUE;
-
 
         while(true){
 
@@ -24,26 +21,17 @@ public class AlgoOn3 {
             int curr = nums[i + 1];
             int next = nums[i + 2];
             if (i == nums.length - 3) break;
-            i++;
 
-            while (prev < curr && curr < next){
+            if (isBeginingOfPattern(prev,curr)){
 
                 LinkedList<Integer> linkedList = new LinkedList<>();
 
-                linkedList.add(prev);
-                prev = nums[i];
-                curr = nums[i + 1];
-                next = nums[i + 2];
-                if (i == nums.length - 3) break;
-                i++;
-
-                if (prev < curr && curr > next){
+                if(isPeek(prev,curr,next)){
 
                     peek = curr;
-                    queue.add(peek);
                     linkedList.add(prev);
                     linkedList.add(curr);
-                    linkedList.add(next);
+
 
                     while (curr > next && i < nums.length - 3){
 
@@ -53,19 +41,84 @@ public class AlgoOn3 {
                         linkedList.add(curr);
                     }
 
-                    map.put(peek, linkedList);
+                    map.put(linkedList.size(), linkedList);
+
+                } else if (isIncrease(prev,curr,next)){
+
+                    while (isIncrease(prev,curr,next)){
+
+                        linkedList.add(prev);
+                        prev = nums[++i];
+                        curr = nums[i + 1];
+                        next = nums[i + 2];
+
+                        if (i == nums.length - 3) {
+
+                            linkedList.add(prev);
+                            linkedList.add(curr);
+                            if (next < curr) {
+                                linkedList.add(next);
+                                map.put(linkedList.size(), linkedList);
+                            }
+                            break;
+                        }
+
+                        if (isPeek(prev,curr,next)){
+
+                            peek = curr;
+                            linkedList.add(prev);
+                            linkedList.add(curr);
+
+                            while (curr > next){
+
+                                prev = nums[++i];
+                                curr = nums[i + 1];
+                                next = nums[i + 2];
+                                linkedList.add(curr);
+
+                                if (i == nums.length - 3) {
+                                    linkedList.add(next);
+                                    map.put(linkedList.size(), linkedList);
+                                    break;
+                                }
+                            }
+
+                            map.put(linkedList.size(), linkedList);
+                            i++;
+                        }
+                    }
                 }
 
+            } else {
+                i++;
             }
-
-
         }
 
-
-        int x = queue.peek();
-
         System.out.println(map);
-
-        return map.get(x);
+        return "map.values()";
     }
+
+    public static boolean isPeek(int a, int b, int c){
+        return a < b && b > c;
+    }
+
+    public static boolean isIncrease(int a, int b, int c){
+        return a < b && b < c;
+    }
+
+    public static boolean isDecrease(int a, int b, int c){
+        return a > b && b > c;
+    }
+
+    public static boolean isEndOfPattern(int a, int b, int c){
+        return a > b && b < c;
+    }
+
+    public static boolean isBeginingOfPattern(int a, int b){
+        return a < b;
+    }
+
+
+
+
 }

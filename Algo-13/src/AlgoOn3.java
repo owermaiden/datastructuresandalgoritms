@@ -2,14 +2,14 @@ import java.util.*;
 
 public class AlgoOn3 {
     public static void main(String[] args) {
-        int[] nums = {  0, 10, 15, 5, 4, 2, 12, 10, 15, 20, 19 };
+        int[] nums = {  0, 0, 1, 10, 2, 15, 5, 4, 2, 99, 12, 10, 15, 20, 19, 0, 4 };
                    // p  c  n
                    //    p  c  n
         System.out.println(findMaxPeek(nums));
 
     }
 
-    public static String findMaxPeek(int[] nums){
+    public static LinkedList<Integer> findMaxPeek(int[] nums){
         ArrayList<Integer> list = new ArrayList<>();
         HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
         int i = 0;
@@ -77,14 +77,16 @@ public class AlgoOn3 {
                                 linkedList.add(curr);
 
                                 if (i == nums.length - 3) {
-                                    linkedList.add(next);
+
+                                    if (next < curr) {
+                                        linkedList.add(next);
+                                    }
                                     map.put(linkedList.size(), linkedList);
                                     break;
                                 }
                             }
 
                             map.put(linkedList.size(), linkedList);
-                            i++;
                         }
                     }
                 }
@@ -93,9 +95,9 @@ public class AlgoOn3 {
                 i++;
             }
         }
-
+        var biggestKey = Optional.of(map.keySet().stream().mapToInt(v -> v).max().orElseThrow(NoSuchElementException::new)).get();
         System.out.println(map);
-        return "map.values()";
+        return map.get(biggestKey);
     }
 
     public static boolean isPeek(int a, int b, int c){

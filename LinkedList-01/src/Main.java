@@ -9,14 +9,17 @@ public class Main {
         linkedList.addNodeEnd(30);
         linkedList.addNodeEnd(40);
         linkedList.addNodeEnd(50);
+        linkedList.insertInOrder(55);
 
         int x = linkedList.findTheKthNodeFromEnd(30);
         int y = linkedList.findIndexOfNode(20);
         System.out.println(linkedList.getMiddleNode());
 
-        System.out.println(linkedList.size());
+
         System.out.println(x);
         System.out.println(y);
+        System.out.println(linkedList);
+        System.out.println(linkedList.size());
 
 
     }

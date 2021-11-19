@@ -150,6 +150,30 @@ public class LinkedList {
             return nodeList;
         }
 
+    }
+
+    public void insertInOrder(int value){
+        Node item = new Node(value);
+        if (isEmpty()){
+            first = last = item;
+            this.count++;
+            return;
+        } else if (value <= first.value){
+            insertBegining(value);
+        } else {
+            Node current = first;
+            while (current.next != null) {
+                if (current.value < value && current.next.value > value){
+                    item.next = current.next;
+                    current.next = item;
+                    break;
+                }
+                current = current.next;
+            }
+            current.next = item;
+            last = item;
+        }
+        count++;
 
     }
 

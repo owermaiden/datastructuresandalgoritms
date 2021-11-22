@@ -12,31 +12,31 @@ public class AlgoOn5 {
         ArrayList<Integer> result = new ArrayList<>();
         boolean alreadySorted = false;
 
-        int [] sortedArray = givenArray.clone();
-        Arrays.sort(sortedArray);
+        int [] sortedArray = givenArray.clone();                  // first clone the array...
+        Arrays.sort(sortedArray);                                 // then sort it...
         System.out.println(Arrays.toString(sortedArray));
         System.out.println(Arrays.toString(givenArray));
 
         int startIndex = 0;
-        while (givenArray[startIndex] == sortedArray[startIndex]){
+        while (givenArray[startIndex] == sortedArray[startIndex]){   // if two indexes are equal...continue to look up..
             startIndex++;
-            if (startIndex == givenArray.length - 1) {
-                alreadySorted = true;
+            if (startIndex == givenArray.length - 1) {               // if we reach the end and still not find any difference
+                alreadySorted = true;                                // then it means our array is already sorted..
                 break;
             }
         }
 
-        if (alreadySorted){
+        if (alreadySorted){                                         // if already sorted..return -1,-1
             result.add(-1);  result.add(-1);
             return result;
         }
 
-        int endIndex = givenArray.length - 1;
-        while (givenArray[endIndex] == sortedArray[endIndex]){
+        int endIndex = givenArray.length - 1;                       // Do the same from reverse traversal...
+        while (givenArray[endIndex] == sortedArray[endIndex]){      // We only need index...
             endIndex--;
         }
 
-        result.add(startIndex); result.add(endIndex);
+        result.add(startIndex); result.add(endIndex);               // Add results in an arraylist...
         return result;
 
     }

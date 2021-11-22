@@ -3,8 +3,10 @@ import java.util.Arrays;
 
 public class AlgoOn5 {
     public static void main(String[] args) {
-        int[] givenArray = {1,2,3,4,5,3};
+        int[] givenArray = {1,2,4,7,10,11,7,12,6,7,16,18,19};
+        int[] edgeCaseArray = {1,2,3,4,5,6,7,8,9};
         System.out.println(findSubArray(givenArray));
+        System.out.println(findSubArray(edgeCaseArray));
 
     }
 

@@ -17,16 +17,17 @@ public class AvlTree {
         }
     }
 
+    //---------------------------AVL TREE CLASS------------------------------------------------------------------
     private AVLNode root;
     private int size;
 
+
+    // ---------------------------MAIN METHODS--------------------------------------------------------------------
     public void insert(int... keys) {
         for (int key : keys) {
             root = insert(root, key);
         }
     }
-
-    // --------------------INSERT-------------------------------------------------
 
     public void insert(int value) { root = insert(root, value);
     }
@@ -47,34 +48,6 @@ public class AvlTree {
         return balance(root);
     }
 
-    // ---------------------------HELPER METHODS--------------------------------------------------------------------
-    private int getLeftSubtreeSize(AVLNode node) {
-        int tmp = node.childCount;
-
-        if (node.rightChild != null) {
-            tmp -= (node.rightChild.childCount + 1);
-        }
-        return tmp;
-    }
-
-    private AVLNode getNode(AVLNode root, int index) {
-        AVLNode current = root;
-
-        for (;;) {
-            int leftSubtreeSize = getLeftSubtreeSize(current);
-
-            if (index == leftSubtreeSize) {
-                return current;
-            }
-
-            if (index > leftSubtreeSize) {
-                index -= (leftSubtreeSize + 1);
-                current = current.rightChild;
-            } else {
-                current = current.leftChild;
-            }
-        }
-    }
 
     private AVLNode balance(AVLNode root) {
         if (isLeftHeavy(root)) {
@@ -128,19 +101,32 @@ public class AvlTree {
         }
     }
 
-    public double getMedian() {
-        if (size == 0) {
-            throw new IllegalStateException(
-                    "Asking for median from an empty tree.");
-        }
+    private AVLNode getNodeAtIndex(AVLNode root, int index) {
+        AVLNode current = root;
 
-        if (size % 2 == 0) {
-            int b = getNode(root, size / 2 - 1).value;
-            int a = getNode(root, size / 2).value;
-            return 0.5 * (a + b);
-        } else {
-            return getNode(root, size / 2).value;
+        for (;;) {
+            int leftSubtreeSize = getLeftSubtreeSize(current);
+
+            if (index == leftSubtreeSize) {
+                return current;
+            }
+
+            if (index > leftSubtreeSize) {
+                index -= (leftSubtreeSize + 1);
+                current = current.rightChild;
+            } else {
+                current = current.leftChild;
+            }
         }
+    }
+
+    private int getLeftSubtreeSize(AVLNode node) {
+        int tmp = node.childCount;
+
+        if (node.rightChild != null) {
+            tmp -= (node.rightChild.childCount + 1);
+        }
+        return tmp;
     }
 
     private boolean isLeftHeavy(AVLNode node) {
@@ -157,6 +143,23 @@ public class AvlTree {
 
     private int height(AVLNode node) {
         return (node == null) ? -1 : node.height;
+    }
+
+    // ---------------------------OTHER METHODS--------------------------------------------------------------------
+
+    public double getMedian() {
+        if (size == 0) {
+            throw new IllegalStateException(
+                    "Asking for median from an empty tree.");
+        }
+
+        if (size % 2 == 0) {
+            int b = getNodeAtIndex(root, size / 2 - 1).value;
+            int a = getNodeAtIndex(root, size / 2).value;
+            return 0.5 * (a + b);
+        } else {
+            return getNodeAtIndex(root, size / 2).value;
+        }
     }
 
     @Override

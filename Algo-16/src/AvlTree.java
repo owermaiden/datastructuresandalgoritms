@@ -54,7 +54,6 @@ public class AvlTree {
         if (node.rightChild != null) {
             tmp -= (node.rightChild.childCount + 1);
         }
-
         return tmp;
     }
 

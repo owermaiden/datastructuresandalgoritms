@@ -1,14 +1,8 @@
 public class AlgoOn6 {
     public static void main(String[] args) {
-        int[] arr1 = {1};
-        int[] arr2 = {4,6,9,45,66,77,88};
+        int[] arr1 = {1,2,3,4,5,6,7};
+        int[] arr2 = {9,45,66,77,88,99};
         System.out.println(findMedian(arr1, arr2));
-
-        AvlTree tree = new AvlTree();
-        tree.insert(arr1);
-        tree.insert(arr2);
-        System.out.println(tree.getMedian());
-
     }
 
     static double findMedian(int[] arr1, int[] arr2){
@@ -24,8 +18,11 @@ public class AlgoOn6 {
             return findNotMergedMedian(arr1, arr2, n, m, halfSize, biggerSizedArray, smallerSizedArray);
         }
 
+        AvlTree tree = new AvlTree();
+        tree.insert(arr1);
+        tree.insert(arr2);
 
-        return 1.3;
+        return tree.getMedian();
 
 
     }

@@ -1,8 +1,13 @@
 public class AlgoOn6 {
     public static void main(String[] args) {
-        int[] arr1 = {1,2,3,4,5,6,7};
-        int[] arr2 = {22,23,24,45,66,77,88};
+        int[] arr1 = {1};
+        int[] arr2 = {4,6,9,45,66,77,88};
         System.out.println(findMedian(arr1, arr2));
+
+        AvlTree tree = new AvlTree();
+        tree.insert(arr1);
+        tree.insert(arr2);
+        System.out.println(tree.getMedian());
 
     }
 
@@ -14,9 +19,9 @@ public class AlgoOn6 {
         int smallerSizedArray = Math.min(m,n);
 
         if(isNotMerge(arr1,arr2)){
-            return findMedian(arr2, arr1, n, m, halfSize, biggerSizedArray, smallerSizedArray);
+            return findNotMergedMedian(arr2, arr1, n, m, halfSize, biggerSizedArray, smallerSizedArray);
         } else if(isNotMerge(arr2,arr1)){
-            return findMedian(arr1, arr2, n, m, halfSize, biggerSizedArray, smallerSizedArray);
+            return findNotMergedMedian(arr1, arr2, n, m, halfSize, biggerSizedArray, smallerSizedArray);
         }
 
 
@@ -25,7 +30,7 @@ public class AlgoOn6 {
 
     }
 
-    private static double findMedian(int[] arr1, int[] arr2, int n, int m, int halfSize, int biggerSizedArray, int smallerSizedArray) {
+    private static double findNotMergedMedian(int[] arr1, int[] arr2, int n, int m, int halfSize, int biggerSizedArray, int smallerSizedArray) {
         if (m==n) return (arr2[n-1] + arr1[0])/2.0;
         if (isEven(arr2,arr1)) return arr2.length == biggerSizedArray ? ((arr2[halfSize - 1] + arr2[halfSize]) / 2.0) : (arr1[(halfSize - 1)-smallerSizedArray] + arr1[((halfSize - 1)-smallerSizedArray) + 1]) / 2.0;
                                return arr2.length == biggerSizedArray ? arr2[(m+n)/2] : arr1[((m+n)/2)-smallerSizedArray];
@@ -38,6 +43,8 @@ public class AlgoOn6 {
     static boolean isEven(int[] arr1, int[] arr2){
         return (arr1.length + arr2.length)%2 == 0;
     }
+
+
 
 
 }

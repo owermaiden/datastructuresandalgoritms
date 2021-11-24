@@ -2,7 +2,7 @@ import java.util.*;
 
 public class AlgoOn3 {
     public static void main(String[] args) {
-        int[] nums = {  0, 0, 1, 10, 2, 15, 5, 4, 2, 99, 12, 10, 15, 20, 19, 0, 4 };
+        int[] nums = {  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,9, 10 };
                    // p  c  n
                    //    p  c  n
         System.out.println(findMaxPeek(nums));
@@ -10,11 +10,10 @@ public class AlgoOn3 {
     }
 
     public static LinkedList<Integer> findMaxPeek(int[] nums){
-        ArrayList<Integer> list = new ArrayList<>();
-        HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
-        int i = 0;
-        int peek = Integer.MAX_VALUE;
 
+        HashMap<Integer, LinkedList<Integer>> map = new HashMap<>();
+
+        int i = 0;
         while(true){
 
             int prev = nums[i];
@@ -22,18 +21,17 @@ public class AlgoOn3 {
             int next = nums[i + 2];
             if (i == nums.length - 3) break;
 
-            if (isBeginingOfPattern(prev,curr)){
+            if (isBeginingOfPattern(prev,curr)){  //-------------------------Begining of a pattern---------------------
 
                 LinkedList<Integer> linkedList = new LinkedList<>();
 
-                if(isPeek(prev,curr,next)){
+                if(isPeek(prev,curr,next)){      // ------------------------ Peek at the begining ---------------------
 
-                    peek = curr;
                     linkedList.add(prev);
                     linkedList.add(curr);
 
 
-                    while (curr > next && i < nums.length - 3){
+                    while (curr > next && i < nums.length - 3){ // ----------Go till the end of the pattern------------
 
                         prev = nums[++i];
                         curr = nums[i + 1];
@@ -43,19 +41,20 @@ public class AlgoOn3 {
 
                     map.put(linkedList.size(), linkedList);
 
-                } else if (isIncrease(prev,curr,next)){
+                } else if (isIncrease(prev,curr,next)){  // -------------------Continue to reach a peek-----------------
 
-                    while (isIncrease(prev,curr,next)){
+                    while (isIncrease(prev,curr,next)){  // -------------------Continue to reach a peek-----------------
 
                         linkedList.add(prev);
                         prev = nums[++i];
                         curr = nums[i + 1];
                         next = nums[i + 2];
 
-                        if (i == nums.length - 3) {
+                        if (i == nums.length - 3) {     // -------------------End of Array need extra care--------------
 
                             linkedList.add(prev);
                             linkedList.add(curr);
+
                             if (next < curr) {
                                 linkedList.add(next);
                                 map.put(linkedList.size(), linkedList);
@@ -63,20 +62,19 @@ public class AlgoOn3 {
                             break;
                         }
 
-                        if (isPeek(prev,curr,next)){
+                        if (isPeek(prev,curr,next)){    // -------------------If we reach peek--------------------------
 
-                            peek = curr;
                             linkedList.add(prev);
                             linkedList.add(curr);
 
-                            while (curr > next){
+                            while (curr > next){       // ----------------Go till the end of the pattern----------------
 
                                 prev = nums[++i];
                                 curr = nums[i + 1];
                                 next = nums[i + 2];
                                 linkedList.add(curr);
 
-                                if (i == nums.length - 3) {
+                                if (i == nums.length - 3) {  // -------------------End of Array need extra care---------
 
                                     if (next < curr) {
                                         linkedList.add(next);
@@ -91,7 +89,7 @@ public class AlgoOn3 {
                     }
                 }
 
-            } else {
+            } else {        //--------------------------if the pattern doesnt match, move pointer to shift right--------
                 i++;
             }
         }
@@ -106,14 +104,6 @@ public class AlgoOn3 {
 
     public static boolean isIncrease(int a, int b, int c){
         return a < b && b < c;
-    }
-
-    public static boolean isDecrease(int a, int b, int c){
-        return a > b && b > c;
-    }
-
-    public static boolean isEndOfPattern(int a, int b, int c){
-        return a > b && b < c;
     }
 
     public static boolean isBeginingOfPattern(int a, int b){

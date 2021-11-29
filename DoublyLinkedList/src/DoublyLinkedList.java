@@ -26,6 +26,7 @@ public class DoublyLinkedList {
         if (isEmpty()){
             first = last = node;
             size++;
+            return;
         }
         node.pre = last;
         last.next = node;
@@ -33,8 +34,18 @@ public class DoublyLinkedList {
         size++;
     }
 
-    private void deleteNode(int value){
+    public void deleteNodeFromEnd(){
+        if (isEmpty()) return;
 
+        if (first == last) {
+            first = last = null;
+            size--;
+            return;
+        }
+
+        last = last.pre;
+        last.next = null;
+        size--;
     }
 
     private boolean isEmpty(){

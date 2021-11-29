@@ -5,6 +5,7 @@ public class Main {
         doublyLinkedList.insertNode(20);
         doublyLinkedList.insertNode(30);
         doublyLinkedList.insertNode(40);
+        doublyLinkedList.deleteNodeFromEnd();
         System.out.println(doublyLinkedList);
     }
 }

@@ -21,6 +21,12 @@ public class DoublyLinkedList {
     private Node tail;
     private int size;
 
+    public int getSize() {
+        return size;
+    }
+
+    // -------------------------------Set Methods -------------------------------------------------------------------
+
     public void setTail(int value){
         setTail(new Node(value));
     }
@@ -192,12 +198,29 @@ public class DoublyLinkedList {
     }
     // -----------------------------------------Index Of--------------------------------------------------------------
     public int indexOf(int value) {
-        // Write your code here.
-        return -1;
-    }
-    public boolean containsNodeWithValue(int value) {
+        if (isEmpty()) throw new IllegalArgumentException("Sorry, There is no such element");
+        if (head == tail && head.value == value){
+            return 0;
+        }
         Node current = head;
-        return false;
+        int index = 0;
+        while (current.value != value){
+            if (current.next == null) return -1;
+            current = current.next;
+            index++;
+        }
+        return index;
+    }
+
+    // -------------------------------------------------Contains Node ----------------------------------------------
+    public boolean containsNodeWithValue(int value) {
+        if (isEmpty()) return false;
+        Node current = head;
+        while (current.value != value){
+            if (current.next == null) return false;
+            current = current.next;
+        }
+        return true;
     }
 
     private boolean isEmpty(){

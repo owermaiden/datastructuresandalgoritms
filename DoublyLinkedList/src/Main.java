@@ -21,6 +21,10 @@ public class Main {
         doublyLinkedList.removeNodesWithValue(30);
         doublyLinkedList.removeNodesWithValue(1);
         doublyLinkedList.removeNodesWithValue(10);
+        System.out.println(doublyLinkedList.getSize());
+        System.out.println(doublyLinkedList.indexOf(35));
+        System.out.println(doublyLinkedList.containsNodeWithValue(35));
+        System.out.println(doublyLinkedList.containsNodeWithValue(9));
 
 
 

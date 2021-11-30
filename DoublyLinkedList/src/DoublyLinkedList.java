@@ -1,5 +1,3 @@
-import com.sun.jdi.connect.Connector;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,44 +21,43 @@ public class DoublyLinkedList {
     private Node tail;
     private int size;
 
-    public void insertNodeToEnd(int value){
-        var node = new Node(value);
+    public void setTail(int value){
+        setTail(new Node(value));
+    }
+    private void setTail(Node node) {
         if (isEmpty()){
             head = tail = node;
             size++;
             return;
         }
-        node.pre = tail;
-        tail.next = node;
-        tail = node;
-        size++;
-    }
-
-    public void deleteNodeFromEnd(){
-        if (isEmpty()) return;
-
-        if (head == tail) {
-            head = tail = null;
-            size--;
+        if (head == tail){
+            node.pre = tail;
+            tail.next = node;
+            tail = node;
+            size++;
             return;
         }
-
-        tail = tail.pre;
-        tail.next = null;
-        size--;
+        insertAfter(tail, node);
     }
 
-    public void setHead(Node node) {
-        // Write your code here.
+    public void setHead(int value){
+        setHead(new Node(value));
     }
-    public void setTail(Node node) {
-        // Write your code here.
+    private void setHead(Node node) {
+        if (isEmpty()){
+            head = tail = node;
+            size++;
+            return;
+        }
+        insertBefore(head, node);
+
     }
+    //---------------------------------------------------------------------Insert Before--------------------------------
     public void insertBefore(int target, int value){
         if (isEmpty()) throw new IllegalArgumentException();
 
         Node newNode = new Node(value);
-        if (head.value == target && tail.value == target ) {
+        if (head == tail && head.value == target ) {
             newNode.next = tail;
             head = newNode;
             tail.pre = head;
@@ -97,17 +94,19 @@ public class DoublyLinkedList {
         current.pre = nodeToInsert;
         size++;
     }
-
+    //---------------------------------------------------------------------Insert After--------------------------------
     public void insertAfter(int target, int value){
-
         if (isEmpty()) throw new IllegalArgumentException();
 
-        if (head.value == target && tail.value == target ){
-            insertNodeToEnd(target);
+        Node newNode = new Node(value);
+        if (head == tail && head.value == target){
+            newNode.pre = tail;
+            tail.next = newNode;
+            tail = newNode;
+            size++;
             return;
         }
-
-        insertAfter(new Node(target), new Node(value));
+        insertAfter(new Node(target), newNode);
 
     }
 
@@ -120,7 +119,9 @@ public class DoublyLinkedList {
             size++;
             return;
         } else if ( node.value == tail.value){
-            insertNodeToEnd(nodeToInsert.value);
+            nodeToInsert.pre = tail;
+            tail.next = nodeToInsert;
+            tail = nodeToInsert;
             size++;
             return;
         }
@@ -138,7 +139,7 @@ public class DoublyLinkedList {
         size++;
 
     }
-
+    //---------------------------------------------------------------------Insert At position--------------------------
     public void insertAtPosition(int position, int value){
         if (position > size) throw new IllegalStateException("This list is smaller than you think...");
         insertAtPosition(position, new Node(value));
@@ -149,6 +150,20 @@ public class DoublyLinkedList {
             current = current.next;
         }
         insertBefore(current, nodeToInsert);
+    }
+    //------------------------------------------------Delete From End--------------------------------------------------
+    public void deleteNodeFromEnd(){
+        if (isEmpty()) return;
+
+        if (head == tail) {
+            head = tail = null;
+            size--;
+            return;
+        }
+
+        tail = tail.pre;
+        tail.next = null;
+        size--;
     }
 
     public void removeNodesWithValue(int value) {

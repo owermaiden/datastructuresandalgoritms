@@ -16,6 +16,12 @@ public class Main {
 
         doublyLinkedList.insertAtPosition(3,99);
 
+        doublyLinkedList.removeNodeFromTail();
+        doublyLinkedList.removeNodeFromTail();
+        doublyLinkedList.removeNodesWithValue(30);
+        doublyLinkedList.removeNodesWithValue(1);
+        doublyLinkedList.removeNodesWithValue(10);
+
 
 
         System.out.println(doublyLinkedList);

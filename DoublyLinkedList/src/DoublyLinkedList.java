@@ -151,28 +151,46 @@ public class DoublyLinkedList {
         }
         insertBefore(current, nodeToInsert);
     }
-    //------------------------------------------------Delete From End--------------------------------------------------
-    public void deleteNodeFromEnd(){
+    //------------------------------------------------Remove From -----------------------------------------------------
+    public void removeNodeFromTail(){
         if (isEmpty()) return;
-
         if (head == tail) {
             head = tail = null;
             size--;
             return;
         }
-
         tail = tail.pre;
         tail.next = null;
         size--;
     }
 
     public void removeNodesWithValue(int value) {
-        // Write your code here.
-    }
-    public void remove(Node node) {
-        // Write your code here.
+        remove(new Node(value));
     }
 
+    private void remove(Node node) {
+        if (isEmpty()) throw new IllegalArgumentException("Sorry, There is no such element");
+        if (head == tail && head.value == node.value){
+            head = tail = null;
+            size--;
+            return;
+        }
+        if (head.value == node.value){
+            head = head.next;
+            head.pre = null;
+            size--;
+            return;
+        }
+        Node current = head;
+        while (current.value != node.value){
+            if (current.next == null) throw new IllegalArgumentException("There is no such element to remove..");
+            current = current.next;
+        }
+        current.pre.next = current.next;
+        current.next = current.pre;
+        size--;
+    }
+    // -----------------------------------------Index Of--------------------------------------------------------------
     public int indexOf(int value) {
         // Write your code here.
         return -1;

@@ -163,7 +163,7 @@ public class DoublyLinkedList {
         return -1;
     }
     public boolean containsNodeWithValue(int value) {
-        // Write your code here.
+        Node current = head;
         return false;
     }
 

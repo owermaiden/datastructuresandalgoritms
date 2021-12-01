@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class LinkedList {
+public class MyLinkedList {
 
     private class Node {
         private int value;
@@ -186,6 +185,24 @@ public class LinkedList {
             index++;
         }
         return -1;
+    }
+
+    // --------------------------------------------------------Algo-17----------------------------------------------
+    public static void removeDublicates(MyLinkedList list){
+        Map<Integer, Node> map = new HashMap<>();
+
+        var current = list.first;
+        while (current != null){
+
+            if (!map.containsKey(current.value)){
+                map.put(current.value, current);
+                current = current.next;
+                continue;
+            }
+            Node prev = map.get(current.value);
+            prev.next = current.next;
+            current = current.next;
+        }
     }
 
 

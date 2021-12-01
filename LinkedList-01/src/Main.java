@@ -1,26 +1,36 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
 
-        LinkedList linkedList = new LinkedList();
-
-        linkedList.addNodeEnd(05);
-        linkedList.insertBegining(10);
-        linkedList.addNodeEnd(20);
-        linkedList.addNodeEnd(30);
-        linkedList.addNodeEnd(40);
-        linkedList.addNodeEnd(50);
-        linkedList.insertInOrder(55);
-
-        int x = linkedList.findTheKthNodeFromEnd(30);
-        int y = linkedList.findIndexOfNode(20);
-        System.out.println(linkedList.getMiddleNode());
+        MyLinkedList myLinkedList = new MyLinkedList();
 
 
-        System.out.println(x);
+        myLinkedList.addNodeEnd(1);
+        myLinkedList.addNodeEnd(1);
+        myLinkedList.addNodeEnd(2);
+        myLinkedList.addNodeEnd(3);
+        myLinkedList.addNodeEnd(4);
+        myLinkedList.addNodeEnd(4);
+        myLinkedList.addNodeEnd(4);
+        myLinkedList.addNodeEnd(5);
+        myLinkedList.addNodeEnd(6);
+        myLinkedList.addNodeEnd(6);
+
+        MyLinkedList.removeDublicates(myLinkedList);
+        System.out.println(myLinkedList);
+
+
+        int y = myLinkedList.findIndexOfNode(20);
+        System.out.println(myLinkedList.getMiddleNode());
+
+
         System.out.println(y);
-        System.out.println(linkedList);
-        System.out.println(linkedList.size());
-
-
+        System.out.println(myLinkedList);
+        System.out.println(myLinkedList.size());
     }
+
+
 }

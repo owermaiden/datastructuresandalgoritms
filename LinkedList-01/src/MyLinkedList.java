@@ -205,25 +205,26 @@ public class MyLinkedList {
         }
     }
 
-    public static MyLinkedList twoNumbersSum(MyLinkedList list1, MyLinkedList list2){
-
-        Node current1 = list1.first;
-        Node current2 = list2.first;
+    public static MyLinkedList twoNumbersSum(MyLinkedList listX, MyLinkedList listY){
+        Node current1 = listX.first;
+        Node current2 = listY.first;
         MyLinkedList result = new MyLinkedList();
 
         int remainer = 0;
         while (current1 != null || current2 != null){
 
-            int digit = (current1.value + current2.value) % 10;
-            result.addNodeEnd(digit + remainer);
-            remainer = 0;
-            remainer = (current1.value + current2.value) / 10;
+            int sumX = current1 == null ? 0 : current1.value;        // if number digits ends...then we may assume it zero...
+            int sumY = current2 == null ? 0 : current2.value;
 
-            current1 = current1.next;
-            current2 = current2.next;
+            int digit = (sumX + sumY) % 10;
+            result.addNodeEnd(digit + remainer);                // Add to result...
+            remainer = 0;                                            // Clear remainer...
+            remainer = (sumX + sumY) / 10;                           // Re-calculate remainer....
+
+            current1 = current1 == null ? current1 : current1.next;   // if we reach and then no need to go further
+            current2 = current2 == null ? current2 : current2.next;
         }
         System.out.println(result);
-
         return result;
     }
 

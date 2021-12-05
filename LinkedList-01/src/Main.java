@@ -17,9 +17,11 @@ public class Main {
         list2.addNodeEnd(9);
         list2.addNodeEnd(4);
         list2.addNodeEnd(5);
-        list2.addNodeEnd(0);
+
 
         MyLinkedList.twoNumbersSum(list1,list2);
+        System.out.println(list1);
+        System.out.println(list2);
     }
 
 

@@ -205,6 +205,28 @@ public class MyLinkedList {
         }
     }
 
+    public static MyLinkedList twoNumbersSum(MyLinkedList list1, MyLinkedList list2){
+
+        Node current1 = list1.first;
+        Node current2 = list2.first;
+        MyLinkedList result = new MyLinkedList();
+
+        int remainer = 0;
+        while (current1 != null || current2 != null){
+
+            int digit = (current1.value + current2.value) % 10;
+            result.addNodeEnd(digit + remainer);
+            remainer = 0;
+            remainer = (current1.value + current2.value) / 10;
+
+            current1 = current1.next;
+            current2 = current2.next;
+        }
+        System.out.println(result);
+
+        return result;
+    }
+
 
 
     public boolean isEmpty(){

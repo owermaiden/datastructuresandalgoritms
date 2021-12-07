@@ -211,14 +211,13 @@ public class MyLinkedList {
         MyLinkedList result = new MyLinkedList();
 
         int remainer = 0;
-        while (current1 != null || current2 != null){
+        while (current1 != null || current2 != null || remainer != 0){
 
             int sumX = current1 == null ? 0 : current1.value;        // if number digits ends...then we may assume it zero...
             int sumY = current2 == null ? 0 : current2.value;
 
             int digit = (sumX + sumY + remainer) % 10;
             result.addNodeEnd(digit );                               // Add to result...
-                                                                     // Clear remainer...
             remainer = (sumX + sumY) / 10;                           // Re-calculate remainer....
 
             current1 = current1 == null ? current1 : current1.next;   // if we reach and then no need to go further
@@ -228,6 +227,33 @@ public class MyLinkedList {
         return result;
     }
 
+    public static MyLinkedList mergeTwoLinkedLİst(MyLinkedList listX, MyLinkedList listY){
+        Node current1 = listX.first;
+        Node current2 = listY.first;
+        MyLinkedList result = new MyLinkedList();
+
+        while (current1 != null || current2 != null){
+
+            int x = current1 == null ? Integer.MAX_VALUE : current1.value;
+            int y = current2 == null ? Integer.MAX_VALUE : current2.value;
+
+            if (x < y){
+                result.addNodeEnd(x);
+                current1 = current1.next;
+                continue;
+            } else if (y < x){
+                result.addNodeEnd(y);
+                current2 = current2.next;
+                continue;
+            }
+            result.addNodeEnd(current1.value);
+            result.addNodeEnd(current2.value);
+            current1 = current1.next;
+            current2 = current2.next;
+        }
+        System.out.println(result);
+        return result;
+    }
 
 
     public boolean isEmpty(){

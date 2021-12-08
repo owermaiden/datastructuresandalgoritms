@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        MaxHeap heap = new MaxHeap();
+        Heap heap = new Heap();
         heap.insert(10);
         heap.insert(20);
         heap.insert(30);

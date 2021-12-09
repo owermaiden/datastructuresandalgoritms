@@ -227,7 +227,7 @@ public class MyLinkedList {
         return result;
     }
 
-    public static MyLinkedList mergeTwoLinkedLİst(MyLinkedList listX, MyLinkedList listY){
+    public static MyLinkedList mergeTwoLinkedList(MyLinkedList listX, MyLinkedList listY){
         Node current1 = listX.first;
         Node current2 = listY.first;
         MyLinkedList result = new MyLinkedList();
@@ -255,6 +255,15 @@ public class MyLinkedList {
         return result;
     }
 
+    public static void shiftLinkedList(MyLinkedList list, int k){
+        list.last.next = list.first;
+        int times = k > 0 ? list.count - k : k;
+        for (int i = 0; i < Math.abs(times); i++){
+            list.first = list.first.next;
+            list.last = list.last.next;
+        }
+        list.last.next = null;
+    }
 
     public boolean isEmpty(){
         return first == null;

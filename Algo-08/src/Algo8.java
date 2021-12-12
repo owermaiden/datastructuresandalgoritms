@@ -4,7 +4,7 @@ import java.util.Queue;
 public class Algo8 {
     public static void main(String[] args) {
 
-        int[][] intervals = {{1,2},{3,5},{4,7},{6,8},{9,10}};
+        int[][] intervals = {{1,3},{1,4},{1,5},{6,8},{9,10}};
         mergeOverlapping(intervals);
         System.out.println(Arrays.deepToString(mergeOverlapping(intervals)));
     }
@@ -15,7 +15,9 @@ public class Algo8 {
                 .flatMapToInt(Arrays::stream)
                 .toArray();
 
-        int[] removedOverlap = new int[10];
+        System.out.println(Arrays.toString(flatArray));
+
+        int[] removedOverlap = new int[flatArray.length];
         int i = 0;int j = 0;
         do {
             removedOverlap[i++] = flatArray[j++];
@@ -28,6 +30,7 @@ public class Algo8 {
                 j+=2;
             }
         } while (j < flatArray.length - 2);
+
 
         int[][] newArray = new int[firstArray.length][2];
         int count = 0;

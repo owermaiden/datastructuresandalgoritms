@@ -80,7 +80,7 @@ public class DoublyLinkedList {
             head = nodeToInsert;
             size++;
             return;
-        } else if (node.value == tail.value){
+        } else if (node.value == tail.value){      // There is no need to traverse if value is equal to tail....
             nodeToInsert.next = tail;
             tail.pre.next = nodeToInsert;
             nodeToInsert.pre = tail.pre;
@@ -102,7 +102,7 @@ public class DoublyLinkedList {
     }
     //---------------------------------------------------------------------Insert After--------------------------------
     public void insertAfter(int target, int value){
-        if (isEmpty()) throw new IllegalArgumentException();
+        if (isEmpty()) throw new IllegalArgumentException("There is no such element to insert...");
 
         Node newNode = new Node(value);
         if (head == tail && head.value == target){
@@ -223,6 +223,7 @@ public class DoublyLinkedList {
         return true;
     }
 
+    //--------------------------------------------Helper Methods----------------------------------------------------
     private boolean isEmpty(){
         return this.head == null && this.tail == null;
     }

@@ -17,7 +17,7 @@ public class AlgoOn2 {
 
         if (firstArray.length == 0 || seconArray.length == 0) return result;
 
-        Arrays.sort(seconArray);  //------------------------------------------ O(n)-------------------------------------------
+        Arrays.sort(seconArray);  //------------------------------------------ O(n)-----------------------------------
         //Arrays.sort(firstArray);
 
         for ( int firstArrayEl : firstArray ){

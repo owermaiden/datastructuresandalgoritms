@@ -6,8 +6,6 @@ public class Algo4 {
     public static void main(String[] args) {
         int[] givenArray = {5,1,4,2};
         System.out.println(productsOfOthers(givenArray));
-
-
     }
 
     public static List<Integer> productsOfOthers(int[] givenArray) {

@@ -259,10 +259,31 @@ public class MyLinkedList {
         list.last.next = list.first;
         int times = k > 0 ? list.count - k : k;
         for (int i = 0; i < Math.abs(times); i++){
-            list.first = list.first.next;
             list.last = list.last.next;
+            list.first = list.first.next;
         }
         list.last.next = null;
+    }
+
+    public static boolean isPalindrome(MyLinkedList list){
+        if (list.isEmpty())throw new IllegalStateException();
+        if (list.first == list.last) return true;
+        if(list.first.value != list.last.value) return false;
+
+        Stack<Integer> stack = new Stack<>();
+        Node current = list.first;
+        int i = 0;
+        while (i < list.size() / 2){
+            stack.push(current.value);
+            current = current.next;
+            i++;
+        }
+        if (list.size() % 2 == 1) current = current.next;
+        while (current != null){
+            if (stack.pop() != current.value) return false;
+            current = current.next;
+        }
+        return true;
     }
 
     public boolean isEmpty(){

@@ -17,7 +17,9 @@ public class AlgoOn4 {
         HashMap<Character, Integer> map = new HashMap<>();
         ArrayList<String> subStrings = new ArrayList<>();
 
-        for (int i=0; i < str.length(); i++){
+        if (str.isEmpty()) return "";
+
+        for (int i=0; i < str.length(); i++){                 // ---------O(n)------------------------------------------
 
             if (map.containsKey(str.charAt(i))){              // if iteration finds any dublicate word at this index....
 

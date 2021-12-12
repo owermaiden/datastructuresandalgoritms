@@ -3,7 +3,7 @@ package src.com.company;
 import java.util.Arrays;
 import java.util.Stack;
 
-public class Main {
+public class ArrayReverse {
 
     public static void main(String[] args) {
 	// write your code here

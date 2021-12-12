@@ -4,7 +4,7 @@ public class AlgoTen {
 
     public static void main(String[] args) {
         String word = "Cydeo is the best!";
-        String edgeCase = "    - hello%&/>   world...   Ower   ";
+        String edgeCase = "    -  hello%&/>   world...   Ower   ";
         System.out.println(reverseWords(word));
         System.out.println(reverseWords(edgeCase));
     }
@@ -19,8 +19,8 @@ public class AlgoTen {
 
         String remainer = sentence;
 
-        // Extract each word and push the in a stack<String>
-        // Extract each empty spaces, count them and push to stack<Integer>...
+        // Extract each word and push the in a stack<String>.............................O(n)
+        // Extract each empty spaces, count them and push to stack<Integer>..............O(n)
         do {
 
             int index = remainer.indexOf(" ");
@@ -40,6 +40,7 @@ public class AlgoTen {
             wordStack.push(word);
 
             remainer = remainer.substring(counter);
+
         } while (remainer.contains(" "));
 
         // Edge case -> What if there is no " " at the end of the given String...

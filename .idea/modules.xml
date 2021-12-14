@@ -20,6 +20,7 @@
       <module fileurl="file://$PROJECT_DIR$/DoublyLinkedList/DoublyLinkedList.iml" filepath="$PROJECT_DIR$/DoublyLinkedList/DoublyLinkedList.iml" />
       <module fileurl="file://$PROJECT_DIR$/Heap/Heap.iml" filepath="$PROJECT_DIR$/Heap/Heap.iml" />
       <module fileurl="file://$PROJECT_DIR$/LinkedList-01/LinkedList-01.iml" filepath="$PROJECT_DIR$/LinkedList-01/LinkedList-01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LinkedListLeetCode/LinkedListLeetCode.iml" filepath="$PROJECT_DIR$/LinkedListLeetCode/LinkedListLeetCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/Stack_Implementation/Stack_Implementation.iml" filepath="$PROJECT_DIR$/Stack_Implementation/Stack_Implementation.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tries/Tries.iml" filepath="$PROJECT_DIR$/Tries/Tries.iml" />
       <module fileurl="file://$PROJECT_DIR$/datastructuresandalgoritms.iml" filepath="$PROJECT_DIR$/datastructuresandalgoritms.iml" />

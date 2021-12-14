@@ -43,10 +43,13 @@ public class Node {
         return this;
     }
 
-    private boolean isRigthPlace(Node head, Node nodeToadd){
-        return head.val > nodeToadd.val && head.next.val <  nodeToadd.val ||
-               head.val <  nodeToadd.val && head.next.val >  nodeToadd.val ||
-               head.val== nodeToadd.val;
+    private boolean isRigthPlace(Node current, Node nodeToadd){
+        return current.val <= nodeToadd.val && nodeToadd.val <= current.next.val ||
+               current.val >= nodeToadd.val && nodeToadd.val <= current.next.val && isRealHead(current);
+    }
+
+    private boolean isRealHead(Node current){
+        return current.val > current.next.val;
     }
 
     @Override

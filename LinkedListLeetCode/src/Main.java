@@ -10,7 +10,7 @@ public class Main {
         node.add(7);
 
         System.out.println(node);
-        node.addNodeInOrder(0);
+        node.addNodeInOrder(8);
         System.out.println(node);
 
     }

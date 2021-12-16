@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class Node {
     int val;
@@ -34,7 +32,7 @@ public class Node {
 
         Node current = this;
         while(current.val > val || current.val < val){
-            if (isRigthPlace(current,node)) break;
+            if (isRightPlace(current,node)) break;
             current = current.next;
         }
 
@@ -43,7 +41,7 @@ public class Node {
         return this;
     }
 
-    private boolean isRigthPlace(Node current, Node nodeToadd){
+    private boolean isRightPlace(Node current, Node nodeToadd){
         return current.val <= nodeToadd.val && nodeToadd.val <= current.next.val ||
                current.val >= nodeToadd.val && nodeToadd.val <= current.next.val && isRealHead(current);
     }

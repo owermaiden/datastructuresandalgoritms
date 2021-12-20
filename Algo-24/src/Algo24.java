@@ -11,6 +11,30 @@ public class Algo24 {
         System.out.println(decodeIt(str));
 
     }
+    public static String decodeItNested(String str) {
+
+        Stack<Integer> integerStack = new Stack<>();
+        Stack<String> wordStack = new Stack<>();
+        String result = "";
+
+        for (char ch : str.toCharArray()) {
+
+            if (Character.isDigit(ch)) {
+                integerStack.push(Integer.parseInt(String.valueOf(ch)));
+            } else if (ch == '['){
+                continue;
+            } else if (ch == ']'){
+                wordStack.push(result);
+            } else {
+                StringBuilder temp = new StringBuilder(result);
+                temp.append(ch);
+                result += temp;
+            }
+
+        }
+
+            return "";
+    }
 
     public static String decodeIt(String str){
 

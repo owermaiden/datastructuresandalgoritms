@@ -2,22 +2,24 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        String exp = "322+4*2";
+        String exp = "322+48/2*2";
         System.out.println(calculate(exp));
+        int x = 322 + 48 / 2 * 2;
+        System.out.println(x);
     }
 
     public static int calculate(String exp){
         Stack<Integer> intStack = new Stack<>();
         Stack<Character> operatorStack = new Stack<>();
-        Stack<Integer> tempStack = new Stack<>();
-        boolean flag = true;
+        Stack<Integer> tempStack = new Stack<>();                           // stack for calculating more than one digit integers
+        boolean flag = true;                                                // if we encounter * or / then do this operation at once "flag = false"
 
         for (char ch : exp.toCharArray()){
 
             if (Character.isDigit(ch) && flag){
                 int current = Integer.parseInt(String.valueOf(ch));
 
-                if (!tempStack.isEmpty()){
+                if (!tempStack.isEmpty()){                                  // calculate more than one digit integers
                     tempStack.push(intStack.pop() * 10 + current);
                     intStack.push(tempStack.peek());
                     continue;
@@ -36,13 +38,13 @@ public class Main {
                 flag = false;
                 tempStack.clear();
 
-            } else if (!flag) {
+            } else if (!flag) {                                             // if we encounter "*" or "/" then iteration goes into this if statement
 
                 char operant = operatorStack.pop();
-                int currentInt = Integer.parseInt(String.valueOf(ch));
+                int current = Integer.parseInt(String.valueOf(ch));
 
-                if (operant == '*') intStack.push(intStack.pop() * currentInt);
-                if (operant == '/') intStack.push(intStack.pop() / currentInt);
+                if (operant == '*') intStack.push(intStack.pop() * current);
+                if (operant == '/') intStack.push(intStack.pop() / current);
                 flag = true;
 
             }

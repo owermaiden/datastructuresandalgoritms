@@ -46,18 +46,16 @@ public class Main {
                 if (operant == '*') intStack.push(intStack.pop() * current);
                 if (operant == '/') intStack.push(intStack.pop() / current);
                 flag = true;
-
             }
         }
 
         while (!operatorStack.isEmpty()){
 
-            int post = intStack.pop();
-            char operant = operatorStack.pop();
-            int pre = intStack.pop();
+            int pre = intStack.remove(0);
+            char operant = operatorStack.remove(0);
+            int post = intStack.remove(0);
             intStack.push((operant == '+') ? pre + post : pre - post);
         }
-
         return intStack.pop();
     }
 }

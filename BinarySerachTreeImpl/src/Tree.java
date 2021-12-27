@@ -310,5 +310,21 @@ public class Tree {
         return size() == (Math.pow(2, height() + 1) - 1);
     }
 
+    // ----------------------------- sum of leafs---------------------------------------------------------------
+
+    public List<Integer> calculateBranchSums(){
+        List<Integer> sums = new ArrayList<>();
+        if(root==null) return sums;
+        bracnhSums(root, 0, (ArrayList<Integer>) sums);
+        return sums;
+    }
+    public void bracnhSums(Node node, int tempSum, ArrayList<Integer> sumsList){
+        if (node == null) return;
+        tempSum += node.value;
+        if (node.leftChild == null && node.rightChild == null) sumsList.add(tempSum);
+        bracnhSums(root.leftChild, tempSum, sumsList);
+        bracnhSums(root.rightChild, tempSum, sumsList);
+    }
+
 
 }

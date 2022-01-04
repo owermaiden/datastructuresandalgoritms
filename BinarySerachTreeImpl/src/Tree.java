@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Tree {
@@ -310,6 +311,53 @@ public class Tree {
         return size() == (Math.pow(2, height() + 1) - 1);
     }
 
+    //------------------------------------------------------remove leafs----------------------------------------------
+    public List<List<Integer>> getLeaves(){
+        List<List<Integer>> result = new ArrayList<>();
+        while (root != null){
+            List<Integer> leafs = new ArrayList<>();
+            getLeaves(root, leafs);
+            result.add(leafs);
+            if (root.rightChild == null && root.leftChild == null) {
+                result.add(new ArrayList<>(Arrays.asList(root.value)));
+                break;
+            }
+        }
+        return result;
+    }
+
+    private void getLeaves(Node node, List<Integer> list){
+        if (node == null) {
+            return;
+        }
+
+        if (node.leftChild == null && node.rightChild == null){
+            list.add(node.value);
+            deleteLeaf(node);
+        }
+        getLeaves(node.leftChild, list);
+        getLeaves(node.rightChild, list);
+    }
+
+    public void deleteLeaf(Node leaf){
+        if (!isLeaf(leaf)) throw new IllegalArgumentException("This is not a leaf");
+        deleteLeaf(root, leaf);
+    }
+    private void deleteLeaf(Node root, Node leaftoDelete){
+        if (root.rightChild == null && root.leftChild == null) return;
+
+        if (root.rightChild != null && root.rightChild.value == leaftoDelete.value){
+            root.rightChild = null;
+            return;
+        } else if (root.leftChild != null && root.leftChild.value == leaftoDelete.value){
+            root.leftChild = null;
+            return;
+        }
+        deleteLeaf(root.leftChild, leaftoDelete);
+        deleteLeaf(root.rightChild, leaftoDelete);
+
+    }
+
     // ----------------------------- sum of leafs---------------------------------------------------------------
 
     public List<Integer> calculateBranchSums(){
@@ -325,6 +373,5 @@ public class Tree {
         bracnhSums(root.leftChild, tempSum, sumsList);
         bracnhSums(root.rightChild, tempSum, sumsList);
     }
-
 
 }

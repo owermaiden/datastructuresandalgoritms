@@ -7,6 +7,7 @@ public class Tree {
         private Node leftChild;
         private Node rightChild;
         private int value;
+        private int distance;
 
         public Node(int value) {
             this.value = value;
@@ -32,15 +33,19 @@ public class Tree {
             if (value < current.value) {
                 if (current.leftChild == null) {
                     current.leftChild = node;
+                    current.distance++;
                     break;
                 }
                 current = current.leftChild;
+                current.distance++;
             } else {
                 if (current.rightChild == null) {
                     current.rightChild = node;
+                    current.distance++;
                     break;
                 }
                 current = current.rightChild;
+                current.distance++;
             }
         }
     }  //------------------- End of Insert---------------------------
@@ -78,6 +83,13 @@ public class Tree {
         traversePostOrder(root.leftChild);
         traversePostOrder(root.rightChild);
         System.out.println(root.value);
+    }
+
+    public void traverseLevelOrder() {
+        for (var i = 0; i <= height(); i++) {
+            for (var value : getNodesAtDistance(i))
+                System.out.println(value);
+        }
     }
 
     //------------------- End of Traversals---------------------------
@@ -161,6 +173,7 @@ public class Tree {
                 isBinarySearchTree(root.leftChild, min, root.value - 1)
                         && isBinarySearchTree(root.rightChild, root.value + 1, max);
     }
+//--------------------------------getNodesAtDistance-----------------------------------------------------------------
 
     public ArrayList<Integer> getNodesAtDistance(int distance) {
         var list = new ArrayList<Integer>();
@@ -181,12 +194,6 @@ public class Tree {
         getNodesAtDistance(root.rightChild, distance - 1, list);
     }
 
-    public void traverseLevelOrder() {
-        for (var i = 0; i <= height(); i++) {
-            for (var value : getNodesAtDistance(i))
-                System.out.println(value);
-        }
-    }
 
 
     public int size() {
@@ -363,15 +370,90 @@ public class Tree {
     public List<Integer> calculateBranchSums(){
         List<Integer> sums = new ArrayList<>();
         if(root==null) return sums;
-        bracnhSums(root, 0, (ArrayList<Integer>) sums);
+        branchSums(root, 0, (ArrayList<Integer>) sums);
         return sums;
     }
-    public void bracnhSums(Node node, int tempSum, ArrayList<Integer> sumsList){
+    public void branchSums(Node node, int tempSum, ArrayList<Integer> sumsList){
         if (node == null) return;
         tempSum += node.value;
-        if (node.leftChild == null && node.rightChild == null) sumsList.add(tempSum);
-        bracnhSums(root.leftChild, tempSum, sumsList);
-        bracnhSums(root.rightChild, tempSum, sumsList);
+        if (node.leftChild == null && node.rightChild == null) {
+            sumsList.add(tempSum);
+        }
+        branchSums(node.leftChild, tempSum, sumsList);
+        branchSums(node.rightChild, tempSum, sumsList);
+    }
+    // ------------------------------------ total distance------------------------------------------------------------
+
+    public int calculateTotalDistance(){
+        List<Integer> distances = new ArrayList<>();
+        Node node = root;
+        calculateTotalDistance(node, distances);
+        return distances.stream().reduce(0,Integer::sum);
+    }
+    private void calculateTotalDistance(Node root, List<Integer> distances){
+        if (root == null) return;
+        distances.add(root.distance);
+        calculateTotalDistance(root.leftChild, distances);
+        calculateTotalDistance(root.rightChild, distances);
+    }
+    public int calculateTotalDistance2(){
+        List<Integer> distances = new ArrayList<>();
+        Node node = root;
+        int distance = 0;
+        calculateTotalDistance2(node, distance, distances);
+        return distances.stream().reduce(0,Integer::sum);
+    }
+    private void calculateTotalDistance2(Node root, int distance, List<Integer> distances){
+        if (root == null) return;
+        distances.add(distance++);
+        calculateTotalDistance2(root.leftChild, distance, distances);
+        calculateTotalDistance2(root.rightChild, distance, distances);
     }
 
+    //------------------------------print----------------------------------------------------------------------------
+    public static void showTrunks(Trunk p)
+    {
+        if (p == null) {
+            return;
+        }
+
+        showTrunks(p.prev);
+        System.out.print(p.str);
+    }
+    public void printTree(){
+        printTree(root, null, false);
+    }
+    private void printTree( Node root, Trunk prev, boolean isLeft)
+    {
+        if (root == null) {
+            return;
+        }
+
+        String prev_str = "    ";
+        Trunk trunk = new Trunk(prev, prev_str);
+
+        printTree(root.rightChild, trunk, true);
+
+        if (prev == null) {
+            trunk.str = "———";
+        }
+        else if (isLeft) {
+            trunk.str = ".———";
+            prev_str = "   |";
+        }
+        else {
+            trunk.str = "`———";
+            prev.str = prev_str;
+        }
+
+        showTrunks(trunk);
+        System.out.println(" " + root.value);
+
+        if (prev != null) {
+            prev.str = prev_str;
+        }
+        trunk.str = "   |";
+
+        printTree(root.leftChild, trunk, false);
+    }
 }

@@ -10,6 +10,8 @@ public class Runner {
         tree.insertTree(11);
         tree.insertTree(16);
         tree.printTree();
+        tree.inverseTree();
+        tree.printTree();
         System.out.println("tree.calculateTotalDistance() = " + tree.calculateTotalDistance2());
 
     }

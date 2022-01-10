@@ -409,7 +409,31 @@ public class Tree {
         calculateTotalDistance2(root.leftChild, distance, distances);
         calculateTotalDistance2(root.rightChild, distance, distances);
     }
+    //------------------------------inverse the tree-----------------------------------------------------------------
 
+    public void inverseTree(){
+        inverseTree2(root);
+    }
+
+    private void inverseTree2(Node root){
+        if (root.leftChild == null && root.rightChild== null) return;
+
+        if (root.leftChild==null){
+            root.leftChild = root.rightChild;
+            root.rightChild=null;
+            return;
+        } else if (root.rightChild==null){
+            root.rightChild=root.leftChild;
+            root.leftChild=null;
+            return;
+        }
+        Node temp = root.leftChild;
+        root.leftChild = root.rightChild;
+        root.rightChild = temp;
+        inverseTree2(root.leftChild);
+        inverseTree2(root.rightChild);
+
+    }
     //------------------------------print----------------------------------------------------------------------------
     public static void showTrunks(Trunk p)
     {

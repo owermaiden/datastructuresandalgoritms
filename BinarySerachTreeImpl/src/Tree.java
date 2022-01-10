@@ -416,20 +416,12 @@ public class Tree {
     }
 
     private void inverseTree2(Node root){
-        if (root.leftChild == null && root.rightChild== null) return;
+        if (root==null) return;
 
-        if (root.leftChild==null){
-            root.leftChild = root.rightChild;
-            root.rightChild=null;
-            return;
-        } else if (root.rightChild==null){
-            root.rightChild=root.leftChild;
-            root.leftChild=null;
-            return;
-        }
         Node temp = root.leftChild;
         root.leftChild = root.rightChild;
         root.rightChild = temp;
+
         inverseTree2(root.leftChild);
         inverseTree2(root.rightChild);
 

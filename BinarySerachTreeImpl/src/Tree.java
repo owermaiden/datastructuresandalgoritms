@@ -1,13 +1,10 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Tree {
     private class Node{
         private Node leftChild;
         private Node rightChild;
         private int value;
-        private int distance;
 
         public Node(int value) {
             this.value = value;
@@ -33,19 +30,15 @@ public class Tree {
             if (value < current.value) {
                 if (current.leftChild == null) {
                     current.leftChild = node;
-                    current.distance++;
                     break;
                 }
                 current = current.leftChild;
-                current.distance++;
             } else {
                 if (current.rightChild == null) {
                     current.rightChild = node;
-                    current.distance++;
                     break;
                 }
                 current = current.rightChild;
-                current.distance++;
             }
         }
     }  //------------------- End of Insert---------------------------
@@ -88,7 +81,46 @@ public class Tree {
     public void traverseLevelOrder() {
         for (var i = 0; i <= height(); i++) {
             for (var value : getNodesAtDistance(i))
-                System.out.println(value);
+                System.out.print(" | " + value);
+        }
+    }
+
+    public ArrayList<Integer> getNodesAtDistance(int distance) {
+        var list = new ArrayList<Integer>();
+        getNodesAtDistance(root, distance, list);
+        return list;
+    }
+
+    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list) {
+        if (root == null)
+            return;
+
+        if (distance == 0) {
+            list.add(root.value);
+            return;
+        }
+
+        getNodesAtDistance(root.leftChild, distance - 1, list);
+        getNodesAtDistance(root.rightChild, distance - 1, list);
+    }
+
+    // ------------------- traverse breadth first another approach ----------------------------
+    public void printLevelOrder(Node root) {
+        Queue<Node> queue = new LinkedList<Node>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node tempNode = queue.poll();
+            System.out.print(tempNode.value + " ");
+
+            /*add left child to the queue */
+            if (tempNode.leftChild != null) {
+                queue.add(tempNode.leftChild);
+            }
+
+            /*add right right child to the queue */
+            if (tempNode.rightChild != null) {
+                queue.add(tempNode.rightChild);
+            }
         }
     }
 
@@ -113,8 +145,8 @@ public class Tree {
     private boolean isLeaf(Node node) {
         return node.leftChild == null && node.rightChild == null;
     }
-
     // O(log n)
+
     public int min() {
         if (root == null)
             throw new IllegalStateException();
@@ -127,8 +159,8 @@ public class Tree {
         }
         return last.value;
     }
-
     // O(n)
+
     private int min(Node root) {
         if (isLeaf(root))
             return root.value;
@@ -161,7 +193,6 @@ public class Tree {
     public boolean isBinarySearchTree() {
         return isBinarySearchTree(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
-
     private boolean isBinarySearchTree(Node root, int min, int max) {
         if (root == null)
             return true;
@@ -173,26 +204,8 @@ public class Tree {
                 isBinarySearchTree(root.leftChild, min, root.value - 1)
                         && isBinarySearchTree(root.rightChild, root.value + 1, max);
     }
+
 //--------------------------------getNodesAtDistance-----------------------------------------------------------------
-
-    public ArrayList<Integer> getNodesAtDistance(int distance) {
-        var list = new ArrayList<Integer>();
-        getNodesAtDistance(root, distance, list);
-        return list;
-    }
-
-    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list) {
-        if (root == null)
-            return;
-
-        if (distance == 0) {
-            list.add(root.value);
-            return;
-        }
-
-        getNodesAtDistance(root.leftChild, distance - 1, list);
-        getNodesAtDistance(root.rightChild, distance - 1, list);
-    }
 
 
 
@@ -384,18 +397,6 @@ public class Tree {
     }
     // ------------------------------------ total distance------------------------------------------------------------
 
-    public int calculateTotalDistance(){
-        List<Integer> distances = new ArrayList<>();
-        Node node = root;
-        calculateTotalDistance(node, distances);
-        return distances.stream().reduce(0,Integer::sum);
-    }
-    private void calculateTotalDistance(Node root, List<Integer> distances){
-        if (root == null) return;
-        distances.add(root.distance);
-        calculateTotalDistance(root.leftChild, distances);
-        calculateTotalDistance(root.rightChild, distances);
-    }
     public int calculateTotalDistance2(){
         List<Integer> distances = new ArrayList<>();
         Node node = root;

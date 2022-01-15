@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Tree {
     private class Node{
@@ -171,6 +172,20 @@ public class Tree {
         return Math.min(Math.min(left, right), root.value);
     }
 
+    public int max() {
+        if (root == null)
+            throw new IllegalStateException();
+
+        return max(root);
+    }
+
+    private int max(Node root) {
+        if (root.rightChild == null)
+            return root.value;
+
+        return max(root.rightChild);
+    }
+
     public boolean equals(Tree other) {
         if (other == null)
             return false;
@@ -189,10 +204,10 @@ public class Tree {
 
         return false;
     }
-
     public boolean isBinarySearchTree() {
         return isBinarySearchTree(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
+
     private boolean isBinarySearchTree(Node root, int min, int max) {
         if (root == null)
             return true;
@@ -237,20 +252,6 @@ public class Tree {
         return countLeaves(root.leftChild) + countLeaves(root.rightChild);
     }
 
-    public int max() {
-        if (root == null)
-            throw new IllegalStateException();
-
-        return max(root);
-    }
-
-    private int max(Node root) {
-        if (root.rightChild == null)
-            return root.value;
-
-        return max(root.rightChild);
-    }
-
     public boolean contains(int value) {
         return contains(root, value);
     }
@@ -284,15 +285,33 @@ public class Tree {
                 areSibling(root.rightChild, first, second);
     }
 
+    public int findLeastCommonAncestor(int value1, int value2){
+        List<Integer> firstValueAncestors = getAncestors(value1);
+        List<Integer> secondValueAncestor = getAncestors(value2);
+
+        int result = firstValueAncestors.stream()
+                .filter(secondValueAncestor::contains)
+                .mapToInt(v -> v)
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
+
+        return firstValueAncestors.contains(value2) ? value2 : secondValueAncestor.contains(value1) ? value1 : result ;
+
+    }
+
     public List<Integer> getAncestors(int value) {
         var list = new ArrayList<Integer>();
+        if (value == root.value){
+            list.add(value);
+            return list;
+        }
         getAncestors(root, value, list);
         return list;
     }
 
     private boolean getAncestors(Node root, int value, List<Integer> list) {
-        // We should traverse the tree until we find the target value. If
-        // find the target value, we return true without adding the current node
+        // We should traverse the tree until we find the target value.
+        // If find the target value, we return true without adding the current node
         // to the list; otherwise, if we ask for ancestors of 5, 5 will be also
         // added to the list.
         if (root == null)
@@ -303,8 +322,7 @@ public class Tree {
 
         // If we find the target value in the left or right sub-trees, that means
         // the current node (root) is one of the ancestors. So we add it to the list.
-        if (getAncestors(root.leftChild, value, list) ||
-                getAncestors(root.rightChild, value, list)) {
+        if (getAncestors(root.leftChild, value, list) || getAncestors(root.rightChild, value, list)) {
             list.add(root.value);
             return true;
         }

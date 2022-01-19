@@ -305,7 +305,7 @@ public class Tree {
             list.add(value);
             return list;
         }
-        getAncestors(root, value, list);
+        getAncestors2(root, value, list);
         return list;
     }
 
@@ -329,6 +329,23 @@ public class Tree {
 
         return false;
     }
+
+    private void getAncestors2(Node root, int value, List<Integer> list){
+        if (root == null) return;
+
+        while (root.value != value){
+
+            if (value < root.value){
+                    list.add(root.value);
+                    root = root.leftChild;
+            } else {
+                    list.add(root.value);
+                    root = root.rightChild;
+            }
+        }
+        Collections.reverse(list);
+    }
+    // ---------------------------------------helpers-----------------------------------------------------------
 
     public boolean isBalanced() {
         return isBalanced(root);

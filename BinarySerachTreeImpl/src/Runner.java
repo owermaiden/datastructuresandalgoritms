@@ -11,7 +11,7 @@ public class Runner {
         tree.insertTree(11);
         tree.insertTree(16);
         tree.printTree();
-        System.out.println("tree.findLeastCommonAncestor = " + tree.findLeastCommonAncestor(7, 9));
+        System.out.println("tree.findLeastCommonAncestor = " + tree.findLeastCommonAncestor(16, 12));
 
     }
 }

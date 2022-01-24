@@ -78,21 +78,32 @@ public class Tree {
         traversePostOrder(root.rightChild);
         System.out.println(root.value);
     }
+    // ---------------------------------------------Level Order Traverse -------------------------------------------
 
     public void traverseLevelOrder() {
         for (var i = 0; i <= height(); i++) {
-            for (var value : getNodesAtDistance(i))
+            for (var value : getNodesAtDistance(i, true))
                 System.out.print(" | " + value);
         }
     }
 
-    public ArrayList<Integer> getNodesAtDistance(int distance) {
+    public List<List<Integer>> zigzagLevelOrder(){
+        List<List<Integer>> result = new ArrayList<>();
+        boolean isLeftToRight = false;
+        for (var i = 0; i <= height(); i++) {
+            result.add(getNodesAtDistance(i, isLeftToRight));
+            isLeftToRight = !isLeftToRight;
+        }
+        return result;
+    }
+
+    public List<Integer> getNodesAtDistance(int distance, boolean isLeftToRight) {
         var list = new ArrayList<Integer>();
-        getNodesAtDistance(root, distance, list);
+        getNodesAtDistance(root, distance, list, isLeftToRight);
         return list;
     }
 
-    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list) {
+    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list, boolean isLeftToRight) {
         if (root == null)
             return;
 
@@ -101,8 +112,14 @@ public class Tree {
             return;
         }
 
-        getNodesAtDistance(root.leftChild, distance - 1, list);
-        getNodesAtDistance(root.rightChild, distance - 1, list);
+        if (isLeftToRight){
+            getNodesAtDistance(root.rightChild, distance - 1, list, true);
+            getNodesAtDistance(root.leftChild, distance - 1, list, true);
+        } else {
+            getNodesAtDistance(root.leftChild, distance - 1, list, false);
+            getNodesAtDistance(root.rightChild, distance - 1, list, false);
+        }
+
     }
 
     // ------------------- traverse breadth first another approach ----------------------------
@@ -118,12 +135,13 @@ public class Tree {
                 queue.add(tempNode.leftChild);
             }
 
-            /*add right right child to the queue */
+            /*add right child to the queue */
             if (tempNode.rightChild != null) {
                 queue.add(tempNode.rightChild);
             }
         }
     }
+
 
     //------------------- End of Traversals---------------------------
 

@@ -16,13 +16,12 @@ public class GenerateDocument {
         Map<Character, Integer> map = new HashMap<>();
 
         for (char ch : characters.toCharArray()){
-            map.putIfAbsent(ch, 1);
-            map.computeIfPresent(ch, (k , v) -> v++);
+            map.putIfAbsent(ch, 0);
+            map.computeIfPresent(ch, (k , v) -> v + 1);
         }
 
         for (char ch : document.toCharArray()){
-            if (!map.containsKey(ch) || map.get(ch) == 0) return false;
-            map.computeIfPresent(ch, (k,v) -> v--);
+            if (!map.containsKey(ch) || map.computeIfPresent(ch, (k,v) -> v - 1) < 0) return false;
         }
         return true;
     }

@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Tree {
     private class Node{
@@ -19,7 +18,7 @@ public class Tree {
 
     private Node root;
 
-    public void insertTree(int value){
+    public void insert(int value){
         Node node = new Node(value);
         if (root == null){
             root = node;

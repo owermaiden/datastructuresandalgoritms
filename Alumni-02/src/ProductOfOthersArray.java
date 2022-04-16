@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ArraySumOthers {
+public class ProductOfOthersArray {
     public static void main(String[] args) {
         int[] arr1 = { 1,2,3,4 };
         System.out.println(Arrays.toString(calculateProducts2(arr1)));

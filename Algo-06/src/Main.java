@@ -1,35 +1,40 @@
 import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         int targetSum = 0;
-        int[] draftArray = { 12, 3, 1,2,-6,5,-8,6};
-        int[] edgeCases = {-4,-3,-2,-1,3,4,5,6};
+        int[] draftArray = { 12, 3, 1, 2, -6, 5, -8, 6 };
+        int[] edgeCases = { -4, -3, -2, -1, 3, 4, 5, 6 };
 
         System.out.println(Arrays.deepToString(threeNumberSum(draftArray, targetSum)));
+        System.out.println(Arrays.deepToString(threeNumberSum(edgeCases, 0)));
     }
 
-    public static int[][] threeNumberSum(int[] draftArray, int targetSum ){
-        int[] orderedArray = Arrays.stream(draftArray).sorted().toArray();
-        int arrayLength = draftArray.length;
-        int x = 0; int y = 0;
-        int[][] resultArray = new int[arrayLength / 2][3];
+    public static int[][] threeNumberSum(int[] draftArray, int targetSum) {
+        Arrays.sort(draftArray);
+        int n = draftArray.length;
+        List<int[]> results = new ArrayList<>();
 
-        for (int i = 0; i < arrayLength - 4; i++){
-            for (int j = i + 1; j < arrayLength -1; j++){
-                for (int k = j + 1; k < arrayLength - 1; k++){
-                    if ((orderedArray[i] + orderedArray[j] + orderedArray[k]) == targetSum){
-                        resultArray [x][y++] = orderedArray[i];
-                        resultArray [x][y++] = orderedArray[j];
-                        resultArray [x++][y] = orderedArray[k];
-                        y = 0;
-                        break;
-                    }
+        for (int i = 0; i < n - 2; i++) {
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                int sum = draftArray[i] + draftArray[left] + draftArray[right];
+                if (sum == targetSum) {
+                    results.add(new int[] { draftArray[i], draftArray[left], draftArray[right] });
+                    left++;
+                    right--;
+                } else if (sum < targetSum) {
+                    left++;
+                } else {
+                    right--;
                 }
             }
         }
 
-       return resultArray;
+        return results.toArray(new int[results.size()][]);
     }
 }

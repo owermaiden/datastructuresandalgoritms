@@ -17,13 +17,13 @@ public class MyLinkedList {
 
 
     private int count;
-    private Node first;
+    private Node head;
     private Node last;
 
     public void addNodeEnd(int value){
         Node item = new Node(value);
         if (isEmpty()){
-            first = last = item;
+            head = last = item;
             this.count++;
             return;
         }
@@ -32,36 +32,38 @@ public class MyLinkedList {
         count++;
     }
 
+
+
     public void insertBegining(int value){
         Node item = new Node(value);
 
         if (isEmpty()){
-            first = last = item;
+            head = last = item;
             this.count++;
             return;
         }
 
-        if (first == last){
-            item.next = first;
-            first = item;
+        if (head == last){
+            item.next = head;
+            head = item;
             count++;
             return;
         }
 
-        item.next = first;
-        first = item;
+        item.next = head;
+        head = item;
         count++;
     }
 
     public void removeFromEnd(){
         if(isEmpty()) return;
 
-        if (first == last){
-            first = last = null;
+        if (head == last){
+            head = last = null;
             count = 0;
             return;
         }
-        Node current = first;
+        Node current = head;
         while (current.next != last){
             current = current.next;
         }
@@ -70,24 +72,25 @@ public class MyLinkedList {
         count--;
     }
 
+
     public void removeFromBegining(){
         if(isEmpty()) return;
 
-        if (first == last){
-            first = last = null;
+        if (head == last){
+            head = last = null;
             count = 0;
             return;
         }
 
-        first = first.next;
+        head = head.next;
         count--;
     }
 
     public void reverseLinkedList(){
-        if (isEmpty() || first == last) throw new RuntimeException();
+        if (isEmpty() || head == last) throw new RuntimeException();
 
-        Node prev = first;
-        Node curr = first.next;        //  10   ->    20   ->   30
+        Node prev = head;
+        Node curr = head.next;        //  10   ->    20   ->   30
                                        //   p   <-    c          n
         while(curr != null){           //             p    <-    c         n
             Node nexT = curr.next;     //                        p         c        n
@@ -96,19 +99,19 @@ public class MyLinkedList {
             curr = nexT;
         }
 
-        last = first;
+        last = head;
         last.next = null;
-        first = prev;
+        head = prev;
 
     }
 
     public int findTheKthNodeFromEnd(int value){
         if(isEmpty()) throw new RuntimeException();
 
-        if(first == last) return 0;
+        if(head == last) return 0;
 
-        Node p1 = first;
-        Node p2 = first;
+        Node p1 = head;
+        Node p2 = head;
 
         int distance = 0;
         while (true){
@@ -131,12 +134,12 @@ public class MyLinkedList {
         if (isEmpty()) throw new RuntimeException();
         ArrayList<Integer> nodeList = new ArrayList<>();
 
-        if (first == last) {
-            nodeList.add(first.value);
+        if (head == last) {
+            nodeList.add(head.value);
             return nodeList;
         }
 
-        Node current = first;
+        Node current = head;
         for (int i = 0; i < count / 2 - 1 ; i++){
             current = current.next;
         }
@@ -154,13 +157,13 @@ public class MyLinkedList {
     public void insertInOrder(int value){
         Node item = new Node(value);
         if (isEmpty()){
-            first = last = item;
+            head = last = item;
             this.count++;
             return;
-        } else if (value <= first.value){
+        } else if (value <= head.value){
             insertBegining(value);
         } else {
-            Node current = first;
+            Node current = head;
             while (current.next != null) {
                 if (current.value < value && current.next.value > value){
                     item.next = current.next;
@@ -178,7 +181,7 @@ public class MyLinkedList {
 
     public int findIndexOfNode ( int value ){
         int index = 0;
-        Node current = first;
+        Node current = head;
         while (current != null){
             if(current.value == value) return ++index;
             current = current.next;
@@ -191,7 +194,7 @@ public class MyLinkedList {
     public static void removeDublicates(MyLinkedList list){
         Map<Integer, Node> map = new HashMap<>();
 
-        var current = list.first;
+        var current = list.head;
         while (current != null){
 
             if (!map.containsKey(current.value)){
@@ -206,8 +209,8 @@ public class MyLinkedList {
     }
 
     public static MyLinkedList twoNumbersSum(MyLinkedList listX, MyLinkedList listY){
-        Node current1 = listX.first;
-        Node current2 = listY.first;
+        Node current1 = listX.head;
+        Node current2 = listY.head;
         MyLinkedList result = new MyLinkedList();
 
         int remainer = 0;
@@ -228,8 +231,8 @@ public class MyLinkedList {
     }
 
     public static MyLinkedList mergeTwoLinkedList(MyLinkedList listX, MyLinkedList listY){
-        Node current1 = listX.first;
-        Node current2 = listY.first;
+        Node current1 = listX.head;
+        Node current2 = listY.head;
         MyLinkedList result = new MyLinkedList();
 
         while (current1 != null || current2 != null){
@@ -256,22 +259,22 @@ public class MyLinkedList {
     }
 
     public static void shiftLinkedList(MyLinkedList list, int k){
-        list.last.next = list.first;
+        list.last.next = list.head;
         int times = k > 0 ? list.count - k : k;
         for (int i = 0; i < Math.abs(times); i++){
             list.last = list.last.next;
-            list.first = list.first.next;
+            list.head = list.head.next;
         }
         list.last.next = null;
     }
 
     public static boolean isPalindrome(MyLinkedList list){
         if (list.isEmpty())throw new IllegalStateException();
-        if (list.first == list.last) return true;
-        if(list.first.value != list.last.value) return false;
+        if (list.head == list.last) return true;
+        if(list.head.value != list.last.value) return false;
 
         Stack<Integer> stack = new Stack<>();
-        Node current = list.first;
+        Node current = list.head;
         int i = 0;
         while (i < list.size() / 2){
             stack.push(current.value);
@@ -287,7 +290,7 @@ public class MyLinkedList {
     }
 
     public boolean isEmpty(){
-        return first == null;
+        return head == null;
     }
 
     public int size(){
@@ -296,7 +299,7 @@ public class MyLinkedList {
 
     @Override
     public String toString() {
-        Node current = this.first;
+        Node current = this.head;
         List<Node> list = new ArrayList<>();
         while (current != null){
             list.add(current);

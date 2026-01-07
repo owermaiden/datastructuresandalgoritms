@@ -1,44 +1,43 @@
 import java.util.Arrays;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class Algo8 {
     public static void main(String[] args) {
 
         int[][] intervals = {{1,3},{1,4},{1,5},{6,8},{9,10}};
-        mergeOverlapping(intervals);
         System.out.println(Arrays.deepToString(mergeOverlapping(intervals)));
     }
 
-    public static int[][] mergeOverlapping(int[][] firstArray){
+    public static int[][] mergeOverlapping(int[][] intervals){
+        if (intervals == null || intervals.length == 0) {
+            return new int[0][0];
+        }
 
-        int[] flatArray = Arrays.stream(firstArray)
-                .flatMapToInt(Arrays::stream)
-                .toArray();
+        // Sort intervals by start time
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
 
-        System.out.println(Arrays.toString(flatArray));
+        List<int[]> merged = new ArrayList<>();
+        int[] current = intervals[0].clone();
 
-        int[] removedOverlap = new int[flatArray.length];
-        int i = 0;int j = 0;
-        do {
-            removedOverlap[i++] = flatArray[j++];
-            if (j == flatArray.length - 2) {
-                removedOverlap[i++] = flatArray[j++];
-                removedOverlap[i] = flatArray[j];
-                break;
-            }
-            while (flatArray[j] > flatArray[j + 1]){
-                j+=2;
-            }
-        } while (j < flatArray.length - 2);
+        for (int i = 1; i < intervals.length; i++) {
+            int start = intervals[i][0];
+            int end = intervals[i][1];
 
-
-        int[][] newArray = new int[firstArray.length][2];
-        int count = 0;
-        for (int x = 0; x < 5; x++){
-            for (int y = 0; y < 2; y++){
-                newArray[x][y] = removedOverlap[count++];
+            if (start <= current[1]) {
+                // overlapping -> extend the current interval's end if needed
+                current[1] = Math.max(current[1], end);
+            } else {
+                // no overlap -> push current and move to next
+                merged.add(current);
+                current = intervals[i].clone();
             }
         }
-        return newArray;
+
+        // add the last interval
+        merged.add(current);
+
+        return merged.toArray(new int[merged.size()][]);
     }
 }
